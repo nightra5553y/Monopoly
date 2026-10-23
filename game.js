@@ -332,7 +332,8 @@ class Player {
     #budget = 0
     #position = 0
     #property = []
-
+    #roll = 0
+    
     constructor(name, startPrice) {
         this.#name = name;
         this.#budget = startPrice;
@@ -346,9 +347,36 @@ class Player {
     RemainingMoney() {
         return this.#budget;
     }
-
+    // Either have a roll total or individual rolls hmm
     Roll() {
-        return Math.floor(Math.random()*13);
+        this.#roll =  Math.floor((Math.random()*6)+1);
+        if (this.#roll === 6) {
+            console.log("You rolled a 6! Rolling again")
+            this.#roll += Math.floor((Math.random()*6)+1)
+            if (this.#roll === 12) {
+                console.log("You rolled another 6! Rolling again")
+                this.#roll += Math.floor((Math.random()*6)+1)
+                if (this.#roll === 18) {
+                    console.log("18 Uh Oh! Going to Jail")
+                    this.#position = 12;
+                    return -1
+                }
+                else {
+                    document.getElementById("DiceRoll").textContent = this.#roll
+                    return this.#roll
+                } 
+            }
+            else {
+                document.getElementById("DiceRoll").textContent = this.#roll
+                return this.#roll
+            }
+        } 
+        else {
+            document.getElementById("DiceRoll").textContent = this.#roll
+            return this.#roll
+        }
+        document.getElementById("DiceRoll").textContent = this.#roll
+        return this.#roll
     }
     Change(change) {
         this.#budget += change;
@@ -362,11 +390,16 @@ class Player {
     Move(num) {
         if ( (this.#position + num) >= Board.length) {
             this.#position = (this.#position + num) - (Board.length)
-            this.#budget += 200; 
+            this.#budget += 200;
+            if (this.#position === 0) {
+                this.#budget += 50
+            }
+            
         }
         else {
             this.#position += num;
         }
+        
     }
 
     Debugging() {
@@ -375,8 +408,13 @@ class Player {
         console.log(this.#position)
         console.log(this.#property)
     }
+
     GetName() {
         return this.#name
+    }
+
+    Properties() {
+        return this.#property
     }
 }
 
@@ -387,30 +425,69 @@ const player1 = new Player("Subhan", 1500)
 // Bankruptcy
 // Revival Button
 const RollDice = document.querySelector("#Dice");
+const BuyProp = document.querySelector("#Buy");
 
+// Buying a property cant include in if statement because it calls multiple times
+BuyProp.addEventListener("click", () => {
+    console.log("Buying propery")
+    if (player1.RemainingMoney() >= Board[pos].price) {
+        player1.Buying(Board[pos].name, Board[pos].price)
+        Board[pos].owner = player1.GetName()
+        console.log(player1.RemainingMoney(), Board[pos], player1.Properties())
+    }
+    else {
+        alert("Too Expensive")
+    }
+BuyProp.style.display = "none"
+})
+
+// Rolling Dice functionality the motherload
 RollDice.addEventListener("click", () => {
     console.log("Dice was rolled. Lesgo");
     // Add timer for 120 seconds
     let test = player1.Roll()
-    document.getElementById("playerName").textContent = "Subhan" //need to add a function for that asw
-    document.getElementById("DiceRoll").textContent = test
-    player1.Move(test)
-    player1.Debugging()
-    pos = player1.Place()
-    document.getElementById("pos").textContent = pos
-    document.getElementById("name").textContent = Board[pos].name
-    if (Board[pos].type === "property") {
-        if (Board[pos].owner === null) {
-            document.getElementById("owner").textContent = "Unowned"
-        }
-        else{
-            document.getElementById("owner").textContent = Board[pos].owner
-        }
-        
+    document.getElementById("playerName").textContent = player1.GetName() //need to add a function for that asw
+    if (test === 18) {
+
     }
     else {
-        document.getElementById("owner").textContent = "Not a property"
+        prepos = player1.Place()
+        player1.Move(test)
+        player1.Debugging()
+        pos = player1.Place()
+        document.getElementById("pos").textContent = pos
+        document.getElementById("name").textContent = Board[pos].name
+        
+        // Setting the owned/unowned setting up buying with this as well
+        if (Board[pos].type === "property" || Board[pos].type === "station" || Board[pos].type === "utility") {
+            
+            if (Board[pos].owner === null) {
+                document.getElementById("owner").textContent = "Unowned"
+                BuyProp.style.display = "inline-block"
+            }
+            
+            else{
+                document.getElementById("owner").textContent = Board[pos].owner
+            }
+
+            
+        }
+        else {
+            document.getElementById("owner").textContent = "Not a property"
+        }
+
+
+        // Setting up start passages already done on the class but need to check when like going to jail disabling that
+        document.getElementById("budget").textContent = player1.RemainingMoney()
+
+        
+        // To set up later but for now properties list
+        let props = ''
+        
+        document.getElementById("props").textContent = player1.Properties()
+        
     }
+    
     
     
 })
