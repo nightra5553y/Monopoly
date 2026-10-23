@@ -1,128 +1,328 @@
-const readline = require("readline");
 
-function askQuestion(question) {
-    return new Promise(resolve => {
-        rl.question(question, answer =>)
-    })
-}
+
+// Not including specification rn, pakistani map for now
 let Board = [
     {
         name: "Start",
-        type: "start"
+        type: "Start",
+        price: 250
     },
     {
-        name: "Vaasa",
+        name: "Mansehra",
         type: "property",
-        group: "Finland",
-        specification: "Nordic",
-        price: 200,
-        rent: 25,
+        group: "KPK",
+        price: 60,
+        rent: 6,
         owner: null
     },
     {
-        name: "Helsinki",
+        name: "Treasure",
+        type: "Treasure",
+        group: "Treasure"
+    },
+    {
+        name: "Peshawar",
         type: "property",
-        group: "Finland",
-        specification: "Nordic",
-        price: 150,
-        rent: 25,
+        group: "KPK",
+        price: 120,
+        rent: 12,
         owner: null
     },
     {
-        name: "HIA Airport",
-        type: "airport",
-        group: "Airports",
-        price: 200,
-        rent: 25,
-        owner: null
+        name: "New Budget",
+        type: "M01",
+        group: "Miscellaneous"        
     },
     {
-        name: "Split",
+        name: "Abbotabad",
         type: "property",
-        group: "Croatia",
-        specification: "Europe",
+        group: "KPK",
         price: 100,
         rent: 10,
         owner: null        
     },
     {
-        name: "Zagreb",
-        type: "property",
-        group: "Croatia",
-        specification: "Europe",
+        name: "Peshawar City Rail Station",
+        type: "station",
+        group: "Transport",
         price: 200,
-        rent: 12,
-        owner: null        
+        owner: null
     },
     {
-        name: "Power Company",
-        type: "company",
-        group: "utility",
+        name: "Quetta",
+        type: "property",
+        group: "Balochistan",
+        price: 140,
+        owner: null
+    },
+        {
+        name: "ReRoll",
+        type: "M02",
+        group: "Miscellaneous"
+    },
+        {
+        name: "Gwadar",
+        type: "property",
+        group: "Balochistan",
+        price: 120,
+        owner: null
+    },
+        {
+        name: "Surprise",
+        type: "surprise",
+        group: "Surprise"
+    },
+        {
+        name: "Ormara",
+        type: "property",
+        group: "Balochistan",
+        price: 110,
+        owner: null
+    },
+        {
+        name: "Jail",
+        type: "visiting",
+        group: "Jail"
+    },
+        {
+        name: "Treasure",
+        type: "treasure",
+        group: "Treasure"
+    },
+        {
+        name: "Pension",
+        type: "M03",
+        group: "Miscellaneous"
+    },
+    {
+        name: "Sialkot",
+        type: "property",
+        group: "N Punjab",
+        price: 140,
+        owner: null
+    },
+    {
+        name: "WAPDA",
+        type: "utility",
+        group: "Company",
+        price: 180,
+        owner: null
+    },
+    {
+        name: "Lahore",
+        type: "property",
+        group: "N Punjab",
+        price: 190,
+        rent: 19,
+        owner: null
+    },
+    {
+        name: "Lahore Junction Railway Station",
+        type: "station",
+        group: "Transport",
+        price: 200,
+        rent: 25,
+        owner: null
+    },
+    {
+        name: "Faislabad",
+        type: "property",
+        group: "N Punjab",
         price: 150,
+        rent: 15,
         owner: null
     },
     {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
-        owner: null
+        name: "Surprise",
+        type: "surprise",
+        group: "Surprise"
     },
-        {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
-        owner: null
-    },
-        {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
-        owner: null
-    },
-        {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
-        owner: null
-    },
-        {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
-        owner: null
-    },
-        {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
-        owner: null
-    },
-        {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
-        owner: null
-    },
-        {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
+    {
+        name: "Sukkur",
+        type: "property",
+        group: "Sindh",
+        price: 180,
+        rent: 18,
         owner: null
     },
     {
-        name: "Placeholder1",
-        type: "placeholder",
-        group: "test",
-        price: 50,
+        name: "Tax",
+        type: "M04",
+        group: "Miscellaneous"
+    },
+    {
+        name: "Chitral",
+        type: "property",
+        group: "KPK",
+        price: 170,
+        rent: 17,
         owner: null
+    },
+    {
+        name: "Jury Duty",
+        type: "court",
+        group: "Court"
+    },
+    {
+        name: "Bahawalpur",
+        type: "property",
+        group: "S Punjab",
+        price: 200,
+        rent: 20,
+        owner: null
+    },
+    {
+        name: "Sahiwal",
+        type: "property",
+        group: "S Punjab",
+        price: 210,
+        rent: 21,
+        owner: null
+    },
+    {
+        name: "Treasure",
+        type: "treasure",
+        group: "Treasure"
+    },
+    {
+        name: "Multan",
+        type: "property",
+        group: "S Punjab",
+        price: 220,
+        rent: 22,
+        owner: null
+    },
+    {
+        name: "Double Roll",
+        type: "M05",
+        group: "Miscellaneous"
+    },
+    {
+        name: "KHI Airport",
+        type: "station",
+        group: "Transport",
+        price: 200,
+        rent: 25,
+        owner: null
+    },
+    {
+        name: "Karachi",
+        type: "property",
+        group: "Sindh",
+        price: 280,
+        rent: 280,
+        owner: null
+    },
+    {
+        name: "Surprise",
+        type: "surprise",
+        group: "Surprise"
+    },
+    {
+        name: "Hyderabad",
+        type: "property",
+        group: "Sindh",
+        price: 240,
+        rent: 24,
+        owner: null
+    },
+    {
+        name: "Electric",
+        type: "utility",
+        group: "Company",
+        price: 180,
+        owner: null
+    },
+    {
+        name: "Mohenjo-Daro",
+        type: "property",
+        group: "Sindh",
+        price: 250,
+        rent: 25,
+        owner: null
+    },
+    {
+        name: "Go To Jail",
+        type: "goto",
+        group: "Jail"
+    },
+    {
+        name: "Hunza",
+        type: "property",
+        group: "JammuandKashmir",
+        price: 300,
+        rent: 30,
+        owner: null
+    },
+    {
+        name: "Gilgit",
+        type: "property",
+        group: "JammuandKashmir",
+        price: 320,
+        rent: 32,
+        owner: null
+    },
+    {
+        name: "Treasure",
+        type: "treasure",
+        group: "Treasure"
+    },
+    {
+        name: "Kashmir",
+        type: "property",
+        group: "JammuandKashmir",
+        price: 350,
+        rent: 35,
+        owner: null
+    },
+    {
+        name: "Sui",
+        type: "utility",
+        group: "Company",
+        price: 180,
+        owner: null
+    },
+    {
+        name: "ISB Airport",
+        type: "station",
+        group: "Transport",
+        price: 200,
+        rent: 25,
+        owner: null
+    },
+    {
+        name: "Murree",
+        type: "property",
+        group: "Federal",
+        price: 340,
+        rent: 35,
+        owner: null
+    },
+    {
+        name: "Surprise",
+        type: "surprise",
+        group: "Surprise"
+    },
+    {
+        name: "Rawalpindi",
+        type: "property",
+        group: "Federal",
+        price: 380,
+        rent: 40,
+        owner: null
+    },
+    {
+        name: "Islamabad",
+        type: "property",
+        group: "Federal",
+        price: 440,
+        rent: 45,
+        owner: null
+    },
+    {
+        name: "Hefty Tax",
+        type: "M06",
+        group: "Miscellaneous"
     }
 ]
 // static property to add total number of players which are playing
@@ -131,6 +331,7 @@ class Player {
     #name = ""
     #budget = 0
     #position = 0
+    #property = []
 
     constructor(name, startPrice) {
         this.#name = name;
@@ -152,6 +353,11 @@ class Player {
     Change(change) {
         this.#budget += change;
     }
+    
+    Buying(name, value) {
+        this.#property.push(name)
+        this.#budget -= value
+    }
 
     Move(num) {
         if ( (this.#position + num) >= Board.length) {
@@ -167,38 +373,67 @@ class Player {
         console.log(this.#name)
         console.log(this.#budget)
         console.log(this.#position)
+        console.log(this.#property)
     }
     GetName() {
         return this.#name
     }
 }
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+
 
 const player1 = new Player("Subhan", 1500)
 
+// Continue button add to check if user wants to continue
+// Bankruptcy
+// Revival Button
+const RollDice = document.querySelector("#Dice");
 
-rl.question("Continue? (y/n): ", (inp) => {
-    while (inp.toLowerCase() === "y"){
-        let test = player1.Roll()
-        console.log(test)
-        player1.Move(test)
-        player1.Debugging()
-        pos = player1.Place()
+RollDice.addEventListener("click", () => {
+    console.log("Dice was rolled. Lesgo");
+    // Add timer for 120 seconds
+    let test = player1.Roll()
+    document.getElementById("playerName").textContent = "Subhan" //need to add a function for that asw
+    document.getElementById("DiceRoll").textContent = test
+    player1.Move(test)
+    player1.Debugging()
+    pos = player1.Place()
+    document.getElementById("pos").textContent = pos
+    document.getElementById("name").textContent = Board[pos].name
+    if (Board[pos].type === "property") {
         if (Board[pos].owner === null) {
-            if (player1.RemainingMoney >= Board[pos].price) {
-                rl.question("Buy property? (Y/N): ", (choice) => {
-                    if (choice.toLowerCase() == "y") {
-                        player1.Change(Board[pos].price) 
-                        Board[pos].owner = player1.GetName()
-                    }
-                    rl.close()
-                })
-                
-            }
-        }   
+            document.getElementById("owner").textContent = "Unowned"
+        }
+        else{
+            document.getElementById("owner").textContent = Board[pos].owner
+        }
+        
     }
-    rl.close()
+    else {
+        document.getElementById("owner").textContent = "Not a property"
+    }
+    
+    
 })
+
+// rl.question("Continue? (y/n): ", (inp) => {
+//     while (inp.toLowerCase() === "y"){
+//         let test = player1.Roll()
+//         console.log(test)
+//         player1.Move(test)
+//         player1.Debugging()
+//         pos = player1.Place()
+//         if (Board[pos].owner === null) {
+//             if (player1.RemainingMoney >= Board[pos].price) {
+//                 rl.question("Buy property? (Y/N): ", (choice) => {
+//                     if (choice.toLowerCase() == "y") {
+//                         player1.Change(Board[pos].price) 
+//                         Board[pos].owner = player1.GetName()
+//                     }
+//                     rl.close()
+//                 })
+                
+//             }
+//         }   
+//     }
+//     rl.close()
+// })
