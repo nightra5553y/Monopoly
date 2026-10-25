@@ -1,5 +1,28 @@
+// All funcitons tbh
+// For randomising array
 
+function fisherYatesShuffle(arr) {
+  	for (let i = arr.length - 1; i > 0; i--) {
+    	const j = Math.floor(Math.random() * (i + 1));
+    	[arr[i], arr[j]] = [arr[j], arr[i]];
+  	}
+  	return arr;
+}
 
+function UserDisplay(player) {
+    
+    console.log("this is testing", player)
+    document.getElementById("playerName").textContent = player.GetName()
+
+    document.getElementById("budget").textContent = player.RemainingMoney()
+
+    document.getElementById("props").textContent = player.Properties()
+}
+
+function NextPlayer() {
+    i = (i+1) % Players.length
+    UserDisplay()
+}
 // Not including specification rn, pakistani map for now
 let Board = [
     {
@@ -419,42 +442,98 @@ class Player {
 }
 
 
-const player1 = new Player("Subhan", 1500)
-
+const player1 = new Player("Subhan", 1500) // will set a default but
+const Players = []
+Players.push(player1)
 // Continue button add to check if user wants to continue
 // Bankruptcy
 // Revival Button
 const RollDice = document.querySelector("#Dice");
 const BuyProp = document.querySelector("#Buy");
+const TotPlayers = document.querySelector("#PlayerNum")
+const inputName = document.querySelector("#inputName")
+const getName = document.querySelector("#GetName")
+const userName = document.querySelector("#userName")
+const endTurn = document.querySelector("#End")
+
+
+
+// Ending turn
+endTurn.addEventListener("click", () => {
+    BuyProp.hidden = true
+    RollDice.hidden = false
+    NextPlayer()
+})
+
+
+
+// Giving them names
+getName.addEventListener("click", () => {
+    const text = userName.value.trim()
+    if (text === "") {
+        alert("Please enter some text!");
+        return;
+    }
+    inputName.hidden = true
+    Players.push(new Player(text, 1500))
+})    
+
+
+
+//Deciding total players
+TotPlayers.addEventListener("click", () => {
+    console.log("Adding Players")
+    TotPlayers.style.display = "none"
+    inputName.hidden = false
+
+    TotPlayers.style.display = "inline-block"
+})
+
+
+
+// Randomises array
+fisherYatesShuffle(Players)
+let i = 0 // Sets index
+
+
 
 // Buying a property cant include in if statement because it calls multiple times
 BuyProp.addEventListener("click", () => {
+    const player = Players[i]
     console.log("Buying propery")
-    if (player1.RemainingMoney() >= Board[pos].price) {
-        player1.Buying(Board[pos].name, Board[pos].price)
-        Board[pos].owner = player1.GetName()
-        console.log(player1.RemainingMoney(), Board[pos], player1.Properties())
+    if (player.RemainingMoney() >= Board[pos].price) {
+        player.Buying(Board[pos].name, Board[pos].price)
+        Board[pos].owner = player.GetName()
+        console.log(player.RemainingMoney(), Board[pos], player.Properties())
     }
     else {
         alert("Too Expensive")
     }
-BuyProp.style.display = "none"
+    console.log("wtf", player)
+    UserDisplay(player)
+    BuyProp.style.display = "none"
 })
+
+
 
 // Rolling Dice functionality the motherload
 RollDice.addEventListener("click", () => {
+    RollDice.hidden = true
+    const player = Players[i]
+
+    TotPlayers.style.display = "none"
     console.log("Dice was rolled. Lesgo");
     // Add timer for 120 seconds
-    let test = player1.Roll()
-    document.getElementById("playerName").textContent = player1.GetName() //need to add a function for that asw
+    let test = player.Roll()
+    document.getElementById("playerName").textContent = player.GetName() //need to add a function for that asw
     if (test === 18) {
 
     }
     else {
-        prepos = player1.Place()
-        player1.Move(test)
-        player1.Debugging()
-        pos = player1.Place()
+        prepos = player.Place()
+        player.Move(test)
+        player.Debugging()
+        pos = player.Place()
         document.getElementById("pos").textContent = pos
         document.getElementById("name").textContent = Board[pos].name
         
@@ -478,13 +557,13 @@ RollDice.addEventListener("click", () => {
 
 
         // Setting up start passages already done on the class but need to check when like going to jail disabling that
-        document.getElementById("budget").textContent = player1.RemainingMoney()
+        document.getElementById("budget").textContent = player.RemainingMoney()
 
         
         // To set up later but for now properties list
         let props = ''
         
-        document.getElementById("props").textContent = player1.Properties()
+        document.getElementById("props").textContent = Players[i].Properties()
         
     }
     
