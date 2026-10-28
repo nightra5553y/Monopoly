@@ -5,7 +5,7 @@ function fisherYatesShuffle(arr) {
   	for (let i = arr.length - 1; i > 0; i--) {
     	const j = Math.floor(Math.random() * (i + 1));
     	[arr[i], arr[j]] = [arr[j], arr[i]];
-  	}
+  	x}
   	return arr;
 }
 
@@ -19,9 +19,9 @@ function UserDisplay(player) {
     document.getElementById("props").textContent = player.Properties()
 }
 
-function NextPlayer() {
+function NextPlayer(p) {
     i = (i+1) % Players.length
-    UserDisplay()
+    UserDisplay(p)
 }
 // Not including specification rn, pakistani map for now
 let Board = [
@@ -33,7 +33,7 @@ let Board = [
     {
         name: "Mansehra",
         type: "property",
-        group: "KPK",
+        group: 0,
         price: 60,
         rent: 6,
         owner: null
@@ -46,35 +46,35 @@ let Board = [
     {
         name: "Peshawar",
         type: "property",
-        group: "KPK",
+        group: 0,
         price: 120,
         rent: 12,
         owner: null
     },
     {
-        name: "New Budget",
+        name: "Investment",
         type: "M01",
         group: "Miscellaneous"        
     },
     {
         name: "Abbotabad",
         type: "property",
-        group: "KPK",
+        group: 0,
         price: 100,
         rent: 10,
         owner: null        
     },
     {
-        name: "Peshawar City Rail Station",
+        name: "Gwadar Port",
         type: "station",
-        group: "Transport",
+        group: 9,
         price: 200,
         owner: null
     },
     {
         name: "Quetta",
         type: "property",
-        group: "Balochistan",
+        group: 1,
         price: 140,
         owner: null
     },
@@ -86,7 +86,7 @@ let Board = [
         {
         name: "Gwadar",
         type: "property",
-        group: "Balochistan",
+        group: 1,
         price: 120,
         owner: null
     },
@@ -98,7 +98,7 @@ let Board = [
         {
         name: "Ormara",
         type: "property",
-        group: "Balochistan",
+        group: 1,
         price: 110,
         owner: null
     },
@@ -120,29 +120,30 @@ let Board = [
     {
         name: "Sialkot",
         type: "property",
-        group: "N Punjab",
+        group: 2,
         price: 140,
         owner: null
     },
     {
         name: "WAPDA",
         type: "utility",
-        group: "Company",
+        group: 8,
         price: 180,
+        rent: 0,
         owner: null
     },
     {
         name: "Lahore",
         type: "property",
-        group: "N Punjab",
+        group: 2,
         price: 190,
         rent: 19,
         owner: null
     },
     {
-        name: "Lahore Junction Railway Station",
+        name: "LHE Airport",
         type: "station",
-        group: "Transport",
+        group: 9,
         price: 200,
         rent: 25,
         owner: null
@@ -150,7 +151,7 @@ let Board = [
     {
         name: "Faislabad",
         type: "property",
-        group: "N Punjab",
+        group: 2,
         price: 150,
         rent: 15,
         owner: null
@@ -161,22 +162,22 @@ let Board = [
         group: "Surprise"
     },
     {
-        name: "Sukkur",
+        name: "Thatta",
         type: "property",
-        group: "Sindh",
+        group: 3,
         price: 180,
         rent: 18,
         owner: null
     },
     {
-        name: "Tax",
+        name: "Capital Gain Tax",
         type: "M04",
         group: "Miscellaneous"
     },
     {
-        name: "Chitral",
+        name: "Badin",
         type: "property",
-        group: "KPK",
+        group: 3,
         price: 170,
         rent: 17,
         owner: null
@@ -189,7 +190,7 @@ let Board = [
     {
         name: "Bahawalpur",
         type: "property",
-        group: "S Punjab",
+        group: 4,
         price: 200,
         rent: 20,
         owner: null
@@ -197,7 +198,7 @@ let Board = [
     {
         name: "Sahiwal",
         type: "property",
-        group: "S Punjab",
+        group: 4,
         price: 210,
         rent: 21,
         owner: null
@@ -210,7 +211,7 @@ let Board = [
     {
         name: "Multan",
         type: "property",
-        group: "S Punjab",
+        group: 4,
         price: 220,
         rent: 22,
         owner: null
@@ -223,17 +224,17 @@ let Board = [
     {
         name: "KHI Airport",
         type: "station",
-        group: "Transport",
+        group: 9,
         price: 200,
         rent: 25,
         owner: null
     },
     {
-        name: "Karachi",
+        name: "Sukkur",
         type: "property",
-        group: "Sindh",
-        price: 280,
-        rent: 280,
+        group: 5,
+        price: 240,
+        rent: 240,
         owner: null
     },
     {
@@ -244,24 +245,25 @@ let Board = [
     {
         name: "Hyderabad",
         type: "property",
-        group: "Sindh",
-        price: 240,
-        rent: 24,
+        group: 5,
+        price: 250,
+        rent: 25,
         owner: null
     },
     {
         name: "Electric",
         type: "utility",
-        group: "Company",
+        group: 8,
         price: 180,
+        rent: 0,
         owner: null
     },
     {
-        name: "Mohenjo-Daro",
+        name: "Karachi",
         type: "property",
-        group: "Sindh",
-        price: 250,
-        rent: 25,
+        group: 5,
+        price: 280,
+        rent: 28,
         owner: null
     },
     {
@@ -272,7 +274,7 @@ let Board = [
     {
         name: "Hunza",
         type: "property",
-        group: "JammuandKashmir",
+        group: 6,
         price: 300,
         rent: 30,
         owner: null
@@ -280,7 +282,7 @@ let Board = [
     {
         name: "Gilgit",
         type: "property",
-        group: "JammuandKashmir",
+        group: 6,
         price: 320,
         rent: 32,
         owner: null
@@ -293,7 +295,7 @@ let Board = [
     {
         name: "Kashmir",
         type: "property",
-        group: "JammuandKashmir",
+        group: 6,
         price: 350,
         rent: 35,
         owner: null
@@ -301,14 +303,15 @@ let Board = [
     {
         name: "Sui",
         type: "utility",
-        group: "Company",
+        group: 8,
         price: 180,
+        rent: 0,
         owner: null
     },
     {
         name: "ISB Airport",
         type: "station",
-        group: "Transport",
+        group: 9,
         price: 200,
         rent: 25,
         owner: null
@@ -316,7 +319,7 @@ let Board = [
     {
         name: "Murree",
         type: "property",
-        group: "Federal",
+        group: 7,
         price: 340,
         rent: 35,
         owner: null
@@ -329,7 +332,7 @@ let Board = [
     {
         name: "Rawalpindi",
         type: "property",
-        group: "Federal",
+        group: 7,
         price: 380,
         rent: 40,
         owner: null
@@ -337,7 +340,7 @@ let Board = [
     {
         name: "Islamabad",
         type: "property",
-        group: "Federal",
+        group: 7,
         price: 440,
         rent: 45,
         owner: null
@@ -356,7 +359,9 @@ class Player {
     #position = 0
     #property = []
     #roll = 0
-    
+    #transport = 0
+    #company = 0
+
     constructor(name, startPrice) {
         this.#name = name;
         this.#budget = startPrice;
@@ -405,9 +410,17 @@ class Player {
         this.#budget += change;
     }
     
-    Buying(name, value) {
+    Buying(name, value, number) {
         this.#property.push(name)
         this.#budget -= value
+        if (number ===  8 || number === 9) {
+            if (number === 8) {
+                this.#company += 1
+            }
+            else {
+                this.#transport += 1
+            }
+        }
     }
 
     Move(num) {
@@ -439,12 +452,26 @@ class Player {
     Properties() {
         return this.#property
     }
+
+    Special(number) {
+        if (number === 9) {
+            return this.#transport
+        }
+        else if (number === 8) {
+            return this.#company
+        }
+    }
 }
+
+//Will need to set up for debt because many functions will change but ok
 
 
 const player1 = new Player("Subhan", 1500) // will set a default but
-const Players = []
+const Players = [] // Setting up da list
 Players.push(player1)
+let Transports = []
+let Companies = []
+
 // Continue button add to check if user wants to continue
 // Bankruptcy
 // Revival Button
@@ -460,9 +487,10 @@ const endTurn = document.querySelector("#End")
 
 // Ending turn
 endTurn.addEventListener("click", () => {
+    const player = Players[i]
     BuyProp.hidden = true
     RollDice.hidden = false
-    NextPlayer()
+    NextPlayer(player)
 })
 
 
@@ -501,28 +529,67 @@ let i = 0 // Sets index
 BuyProp.addEventListener("click", () => {
     const player = Players[i]
     console.log("Buying propery")
+
     if (player.RemainingMoney() >= Board[pos].price) {
-        player.Buying(Board[pos].name, Board[pos].price)
+        
+        player.Buying(Board[pos].name, Board[pos].price, Board[pos].group)
         Board[pos].owner = player.GetName()
         console.log(player.RemainingMoney(), Board[pos], player.Properties())
+        
+        // Adding for transports and companies
+        if (Board[pos].group === 8 || Board[pos].group === 9) {
+            // Transports
+            if (Board[pos].group === 9) {
+                const trans_owners = Transports.filter(i => i.name === player.GetName())
+                if (trans_owners.length === 0) {
+                    Transports.push({
+                        name: player.GetName(),
+                        owned: 1
+                    })
+                }
+                else {
+                    const t = Transports.find(i => i.name === player.GetName())
+                    t.owned += 1
+                }
+            }
+
+            // Companies
+            else {
+                const comp_owners = Companies.filter(i => i.name === player.GetName())
+                if (comp_owners.length === 0) {
+                    Companies.push({
+                        name: player.GetName(),
+                        owned: 1
+                    })
+                }
+                else {
+                    const c = Companies.find(i => i.name === player.GetName())
+                    c.owned += 1
+                }
+            }
+        }
     }
     else {
         alert("Too Expensive")
     }
+
     console.log("wtf", player)
     UserDisplay(player)
-    BuyProp.style.display = "none"
+    BuyProp.hidden = true
+
 })
 
 
 
 // Rolling Dice functionality the motherload
 RollDice.addEventListener("click", () => {
+    
     RollDice.hidden = true
     const player = Players[i]
 
     TotPlayers.style.display = "none"
     console.log("Dice was rolled. Lesgo");
+    
     // Add timer for 120 seconds
     let test = player.Roll()
     document.getElementById("playerName").textContent = player.GetName() //need to add a function for that asw
@@ -530,29 +597,76 @@ RollDice.addEventListener("click", () => {
 
     }
     else {
-        prepos = player.Place()
         player.Move(test)
         player.Debugging()
-        pos = player.Place()
+        let pos = player.Place()
         document.getElementById("pos").textContent = pos
         document.getElementById("name").textContent = Board[pos].name
-        
+        let rent
         // Setting the owned/unowned setting up buying with this as well
         if (Board[pos].type === "property" || Board[pos].type === "station" || Board[pos].type === "utility") {
             
             if (Board[pos].owner === null) {
                 document.getElementById("owner").textContent = "Unowned"
-                BuyProp.style.display = "inline-block"
+                BuyProp.hidden = false
             }
             
             else{
                 document.getElementById("owner").textContent = Board[pos].owner
+                
+                // Adding rent for now not groups also doesnt account for the fact when person goes into debt
+                if (player.GetName() !== Board[pos].owner) {
+                    
+                    // Checking for transport/company trying something else wait
+                    if (Board[pos].group === 8 || Board[pos].group === 9) {
+                        // Companies
+                        if (Board[pos].group === 8) {
+                            const c = Companies.find(i => i.name === Board[pos].owner)
+                            alert("Companies")
+                            console.log(player.Properties().length, c.owned)
+                            rent = 10 * player.Properties().length * c.owned
+                        } 
+
+                        // Transports
+                        else {
+                            const t = Transports.find(i => i.name === Board[pos].owner)
+                            alert("Transports")
+                            console.log(Board[pos].rent, t.owned)
+                            rent = Board[pos].rent * t.owned
+                        }
+                        
+
+                    }
+
+                    // Need to add property groups
+                    else {
+                        const prop = Board.find(i => i.group === Board[pos].group)
+                        let all = true
+                        for (const p of prop) {
+                            if (p.owner != player.GetName()) {
+                                all = false
+                            }
+                        }
+                        if (all === true) {
+                            rent = Board[pos].rent * 2
+                        }
+                        else {
+                            rent = Board[pos].rent
+                        }
+                        
+                    }
+                    
+                    player.Change(rent)
+                    console.log(`${player.GetName()} paid ${Board[pos].owner} $${rent}`)
+                    BuyProp.hidden = true
+                }
             }
 
             
         }
         else {
             document.getElementById("owner").textContent = "Not a property"
+            
         }
 
 
@@ -564,6 +678,7 @@ RollDice.addEventListener("click", () => {
         let props = ''
         
         document.getElementById("props").textContent = Players[i].Properties()
+        
         
     }
     
